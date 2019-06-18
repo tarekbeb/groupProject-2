@@ -1,3 +1,5 @@
+<% include partials/template/header.ejs %>
+<body>
 <div class="row mt-5">
         <div class="col-md-6 m-auto">
           <div class="card card-body">
@@ -25,7 +27,7 @@
                   class="form-control"
                   placeholder="Enter Name"
                   value="<%= typeof name != 'undefined' ? name : '' %>"
-                /><!--IF TYPE OF NAME DOES NOT EQUAL TO UNDEFINE THEN DISPLAY WHATEVER THE NAME VARIABLE IS -->
+                ><!--IF TYPE OF NAME DOES NOT EQUAL TO UNDEFINE THEN DISPLAY WHATEVER THE NAME VARIABLE IS -->
               </div>
               <div class="form-group">
                 <label for="email">Email</label>
@@ -36,7 +38,7 @@
                   class="form-control"
                   placeholder="Enter Email"
                   value="<%= typeof email != 'undefined' ? email : '' %>"
-                />
+                >
               </div>
               <div class="form-group">
                 <label for="password">Password</label>
@@ -47,7 +49,7 @@
                   class="form-control"
                   placeholder="Create Password"
                   value="<%= typeof password != 'undefined' ? password : '' %>"
-                />
+                >
               </div>
               <div class="form-group">
                 <label for="password2">Confirm Password</label>
@@ -58,7 +60,7 @@
                   class="form-control"
                   placeholder="Confirm Password"
                   value="<%= typeof password2 != 'undefined' ? password2 : '' %>"
-                />
+                >
               </div>
               <button type="submit" class="btn btn-primary btn-block">
                 Register
@@ -68,3 +70,5 @@
           </div>
         </div>
       </div>
+
+<% include partials/template/scripts.ejs %>

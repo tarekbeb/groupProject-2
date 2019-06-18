@@ -1,20 +1,19 @@
 var express = require('express');
 var session = require('express-session');
 // var bodyParser = require('body-parser');
-var app = express();
+let app = express();
 // var bcrip = require('bcryptjs');
 // var db = require('./models');
 // var SequelizeStore = require('connect-session-sequelize')(session.Store);
 // var localStrategy = require('passport-local').Strategy;
 // var passport = require('passport');
-// var bodyParser = require('body-parser');
 
-//THREE PIECES NEED TO BE CONFIGURED TO USE PASSPORT FOR AUTHENTICATION
-//authentication strategies
-//application middleware
-//sessions(optional)
+// THREE PIECES NEED TO BE CONFIGURED TO USE PASSPORT FOR AUTHENTICATION
+// authentication strategies
+// application middleware
+// sessions(optional)
 
-//SETUP
+// SETUP
 // var myStore = new SequelizeStore({
 //     db: db.sequelize 
 // })
@@ -32,8 +31,15 @@ var app = express();
 app.set('view engine', 'ejs');
 app.set('views', 'views');
 
+app.use(express.static('public'));
+
 // app.use(passport.initialize());
 // app.use(passport.session());
+
+app.get('/', (req, res) => {
+    res.send('index');
+})
+
 
 app.use(require('./routes/index'));
 app.use(require('./routes/users'));
@@ -42,6 +48,7 @@ app.use(require('./routes/users'));
 // app.use(bodyParser.urlencoded({extended: false}));
 
 
-app.listen(3000, ()=>{
-    console.log('Listening on port 3000');
+const port = 3000;
+app.listen(port, ()=>{
+    console.log(`Listening on port ${3000}`);
 })
