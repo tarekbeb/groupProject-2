@@ -13,6 +13,8 @@ module.exports = (sequelize, DataTypes) => {
     freezeTableName: true});
   profile.associate = function(models) {
     // associations can be defined here
+    models.profile.hasMany(models.skills, {foreignKey: 'skillsID'})
+    models.profile.hasMany(models.project, {foreignKey: 'projectID'})
   };
   return profile;
 };
