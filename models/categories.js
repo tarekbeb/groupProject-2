@@ -6,8 +6,8 @@ module.exports = (sequelize, DataTypes) => {
     freezeTableName: true});
   categories.associate = function(models) {
     // associations can be defined here
-    models.categories.belongTo(models.project, {foreignKey: 'skillsID'})
-    models.categories.belongTo(models.profile, {foreignKey: 'userID'})
+    models.categories.belongsTo(models.project, {foreignKey: 'skillsID'})
+    models.categories.belongsTo(models.profile, {foreignKey: 'userID'})
   };
   return categories;
 };
