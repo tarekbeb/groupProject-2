@@ -32,10 +32,15 @@ let app = express();
 app.set('view engine', 'ejs');
 app.set('views', 'views');
 
+app.use(express.static('public'));
+
 // app.use(passport.initialize());
 // app.use(passport.session());
 
-app.use(express.static('public'));
+app.get('/', (req, res) => {
+    res.send('index');
+})
+
 
 app.use(require('./routes/index'));
 app.use(require('./routes/users'));
@@ -44,6 +49,7 @@ app.use(require('./routes/users'));
 // app.use(bodyParser.urlencoded({extended: false}));
 
 
-app.listen(3000, ()=>{
-    console.log('Listening on port 3000');
+const port = 3000;
+app.listen(port, ()=>{
+    console.log(`Listening on port ${3000}`);
 })
