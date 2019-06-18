@@ -38,7 +38,7 @@ app.set('views', 'views');
 app.use(express.static('public'));
 
 app.use(require('./routes/index'));
-// app.use(require('./routes/users'));
+app.use(require('./routes/users'));
 
 
 // app.use(bodyParser.urlencoded({extended: false}));
