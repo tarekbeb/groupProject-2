@@ -8,7 +8,7 @@ app.use(express.static('public'));
 
 
 app.get('/', (req, res) => {
-    res.send('front page');
+    res.send('index');
 })
 
 
