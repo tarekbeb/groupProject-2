@@ -8,3 +8,24 @@
         </div>
     <% }); %> 
 <% } %>
+
+<!-- THE WAY THE SUCCESS MSF WORKS IS THAT IF THERE'S NOT STRING THEN IT'S A SUCCESS 
+IF SUCCESS MSG ISN'T EQUAL TO AN EMPTY STRING THEN SHOW THE SUCCESS MESSAGE -->
+<% if(success_msg != '') {
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <%= success.msg %>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+
+<% } %>
+
+<% if(error_msg != '') {
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <%= error.msg %>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+<% } %>
