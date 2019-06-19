@@ -17,14 +17,12 @@ module.exports = {
       summary: {
         type: Sequelize.STRING
       },
-      collaborators: {
-        type: Sequelize.STRING
-      },
-      userID: {
-        type: Sequelize.INTEGER
-      },
-      skillsID: {
-        type: Sequelize.INTEGER
+      industryID: {
+        type: Sequelize.INTEGER,
+        references: {
+          model: 'industry',
+          key: 'id'
+        }
       },
       createdAt: {
         allowNull: false,
