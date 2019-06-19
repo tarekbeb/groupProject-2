@@ -17,35 +17,27 @@ router.get('/newProject', ((req, res) => {
         })
 }))
 
-// router.use(bodyParser.urlencoded({ extended: false }))
+router.use(bodyParser.urlencoded({ extended: false }))
 
-// router.post('/newProject', ((req, res) => {
-//     let pName = req.body.pName;
-//     let industryName = req.body.industry
-//     let description = req.body.description
-//     let summary = req.body.summary;
-
-//     db.industry.findAll().then(()=>{
-
-//     })
-//     industryID = 
-//     if (industryName == industry){
-//         industry = industryId
-//     }
-
-
-
+router.post('/newProject', ((req, res) => {
+    let pName = req.body.pName;
+    let industryId = req.body.industry
+    let description = req.body.description
+    let summary = req.body.summary;
     
-//     db.project.create({pName: pName, industry:industry, description:description, summary:summary})
-//     .then((result) => {
-//         // res.redirect('/')
-//         console.log(`${pName}, ${industryName}, ${summary}`);
-//     })
-//     .catch((error) => {
-//         res.send(error)
-//     })
-//     res.send('new project post afterwards')    
-// }))
+    db.project.create({pName: pName, industryID:industryId, description:description, summary:summary})
+    .then((result) => {
+        db.project.findAll({order: [['updatedAt', 'ASC']]})
+    })
+    .then((records)=>{
+        res.render('feed', {
+            projects: records
+        })
+    })
+    .catch((error) => {
+        res.send(error)
+    })  
+}));
 
 
 module.exports = router;
