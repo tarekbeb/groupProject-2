@@ -1,37 +1,43 @@
 var express = require('express');
 var session = require('express-session');
-// var bodyParser = require('body-parser');
 let app = express();
-// var bcrip = require('bcryptjs');
-// var db = require('./models');
-// var SequelizeStore = require('connect-session-sequelize')(session.Store);
-// var localStrategy = require('passport-local').Strategy;
-// var passport = require('passport');
+var db = require('./models');
+var SequelizeStore = require('connect-session-sequelize')(session.Store);
+var localStrategy = require('passport-local').Strategy;
+var passport = require('passport');
 
 // THREE PIECES NEED TO BE CONFIGURED TO USE PASSPORT FOR AUTHENTICATION
 // authentication strategies
 // application middleware
 // sessions(optional)
 
-// SETUP
-// var myStore = new SequelizeStore({
-//     db: db.sequelize 
-// })
+//SETUP
+var myStore = new SequelizeStore({
+    db: db.sequelize 
+})
 
-// app.use(session({
-//     secret: 'dog eats cats',
-//     resave: false,
-//     proxy: true,
-//     store: myStore
-// }));
+app.use(session({
+    secret: 'dog eats cats',
+    resave: false,
+    proxy: true,
+    store: myStore
+}));
 
-// myStore.sync(); 
+myStore.sync(); 
 
 //SETUP
 app.set('view engine', 'ejs');
 app.set('views', 'views');
 
 app.use(express.static('public'));
+
+//CONNECT FLASH
+app.use(flash());
+
+app.use(function(req, res, next){
+    res.locals.error_msg = req.flash('error_msg');
+    next();
+})
 
 // app.use(passport.initialize());
 // app.use(passport.session());

@@ -2,6 +2,8 @@ var express = require('express');
 var router = express.Router();
 var bcrip = require('bcryptjs');
 var passport = require('passport');
+var flash = require('flash');
+
 //LOADING USER MODELS/PROFILES
 var User = require('../models/profile')
 var forwardAuthenticated = require('../config/auth');
@@ -42,7 +44,7 @@ router.post('/register', ((req, res) => {
         errors.push({msg: 'Password should at least be 6 characters long'})
     }
 
-    //
+    //LENGTH OF ARRAY OF ERRORS WILL POP UP ON REGISTRATION
     if(errors.length > 0){
         res.render('register', {
             errors,
@@ -98,7 +100,7 @@ router.post('/register', ((req, res) => {
     }
 
 
-    // let password = bcrip.hasSync(req.body.password, 8);
+    let password = bcrip.hasSync(req.body.password, 8);
 
     
     // db.profile.create({username: username, password:password, email:email, name:name})
