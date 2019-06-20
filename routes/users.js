@@ -32,6 +32,7 @@ router.post('/register', ((req, res) => {
     let password = req.body.password;
     var password2 = req.body.password2;
     let errors = [];
+    let success = [];
 
     //CHECK REQUIRED FIELDS
     if(!fName || !lName || !email || !username || !password || !password2){
@@ -77,11 +78,8 @@ router.post('/register', ((req, res) => {
             } else {
                 let password = bcrypt.hashSync(req.body.password, 8);
                 db.user.create({fName:fName, lName:lName, username:username, email:email, password:password})    
-                .then((result) => {
-                    req.flash(
-                        'success_msg',
-                        'You are now registered and can log in'
-                    );
+                .then((user) => {
+                    req.flash('success_msg', 'You are now registered and can log in');
                     res.redirect('/login')
                 })
                 .catch((error) => {
