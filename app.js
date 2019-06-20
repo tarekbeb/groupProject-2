@@ -38,13 +38,14 @@ app.use(express.static('public'));
 // app.use(passport.session());
 
 app.get('/', (req, res) => {
-    res.send('index');
+    res.render('index');
 })
 
 
 app.use(require('./routes/index'));
 app.use(require('./routes/users'));
 app.use(require('./routes/newProject'))
+app.use(require('./routes/ideas'))
 
 
 // app.use(bodyParser.urlencoded({extended: false}));
