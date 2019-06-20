@@ -46,6 +46,7 @@ app.use(require('./routes/index'));
 app.use(require('./routes/users'));
 app.use(require('./routes/newProject'))
 app.use(require('./routes/ideas'))
+app.use(require('./routes/feed'))
 
 
 // app.use(bodyParser.urlencoded({extended: false}));
