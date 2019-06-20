@@ -5,8 +5,7 @@ module.exports = (sequelize, DataTypes) => {
     description: DataTypes.STRING,
     summary: DataTypes.STRING,
     industryID: DataTypes.INTEGER
-  }, {timestamps: false,
-    freezeTableName: true});
+  }, {freezeTableName: true});
   project.associate = function(models) {
     // associations can be defined here
     models.user.belongsToMany(models.project, {through: models.userproject})

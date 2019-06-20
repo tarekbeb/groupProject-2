@@ -8,8 +8,7 @@ module.exports = (sequelize, DataTypes) => {
     password: DataTypes.STRING,
     imgURL: DataTypes.STRING,
     bio: DataTypes.STRING
-  }, {timestamps: false,
-    freezeTableName: true});
+  }, {freezeTableName: true});
   user.associate = function(models) {
     // associations can be defined here
     models.project.belongsToMany(models.user, {through: models.userproject});
