@@ -1,6 +1,6 @@
 var express = require('express');
 var session = require('express-session');
-// var db = require('./models');
+// var db = require('../models');
 // var SequelizeStore = require('connect-session-sequelize')(session.Store);
 // var localStrategy = require('passport-local').Strategy;
 var passport = require('passport');
@@ -44,6 +44,7 @@ app.use(flash());
 app.use(function(req, res, next){
     res.locals.success_msg = req.flash('success_msg');
     res.locals.error_msg = req.flash('error_msg');
+    res.locals.error_msg = req.flash('error'); //FOR THE LOGIN ERROR
     next();
 })
 

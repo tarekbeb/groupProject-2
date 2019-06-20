@@ -2,18 +2,23 @@ var express = require('express');
 var router = express.Router();
 var bcrypt = require('bcryptjs');
 var passport = require('passport');
+var db = require('../models');
+let SequelizeStore = require('connect-session-sequelize')(session.Store);
+var localStrategy = require('passport-local').Strategy
+
+
 
 //LOADING USER MODELS/PROFILES
 var User = require('../models/profile')
-// var forwardAuthenticated = require('../config/auth');
+var forwardAuthenticated = require('../config/auth');
 
 //LOGIN PAGE
-router.get('/login', ((req, res) => {
+router.get('/login', forwardAuthenticated((req, res) => {
     res.render('login');
 }))
 
 //REGISTRATION
-router.get('/register', ((req, res) => {
+router.get('/register', forwardAuthenticated((req, res) => {
     res.render('register');
 }))
 
@@ -55,7 +60,7 @@ router.post('/register', ((req, res) => {
             password2
         });
     } else {
-        db.profile.findOne({email: email})
+        User.findOne({email: email})
         .then(user =>{
             if (profile) {
                 errors.push({msg: 'Email already exists'});
@@ -69,7 +74,7 @@ router.post('/register', ((req, res) => {
                     password2
                 });
             } else {
-                var newUser = new user({
+                var newUser = new User({
                     fname, 
                     lname, 
                     username,
@@ -101,7 +106,7 @@ router.post('/register', ((req, res) => {
     }
     
     
-    db.profile.create({fname:fname, lname:lname, username:username, email:email, password:password})    
+    User.create({fname:fname, lname:lname, username:username, email:email, password:password})    
     .then((result) => {
         // res.redirect('/login')
         console.log(`${username}, ${fname}, ${lname} ${email}`);
