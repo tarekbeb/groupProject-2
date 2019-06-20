@@ -3,6 +3,7 @@ var router = express.Router();
 var bcrypt = require('bcryptjs');
 var passport = require('passport');
 var db = require('../models');
+require('../config/passport');
 
 
 
@@ -118,22 +119,14 @@ router.post('/register', ((req, res) => {
 }));
 
 //LOGIN
-// router.post('/login', (req, res, next) => {
-//     passport.authenticate('local', { //USING THE LOCAL STRATEGY
-//       successRedirect: '/index', //ON SUCCESS REDIRECT TO /DASHBOARD
-//       failureRedirect: '/login', //ON FAILURE STAY OR GO TO LOGIN BASICALLY
-//       failureFlash: true //SHOW FLASH MESSAGE ON FAILURE
-//     })(req, res, next); //DOCUMENTATION
-//     console.log(req.session.id);
-//   });
-  
-  router.post('/login', 
+router.post('/login',
     passport.authenticate('local', { //USING THE LOCAL STRATEGY
       successRedirect: '/index', //ON SUCCESS REDIRECT TO /DASHBOARD
       failureRedirect: '/login', //ON FAILURE STAY OR GO TO LOGIN BASICALLY
       failureFlash: true //SHOW FLASH MESSAGE ON FAILURE
-    }) //DOCUMENTATION
-  );
+    }) //DOCUMENTATION 
+);
+  
 
   //LOGOUT
   router.get('/logout', (req, res) => {

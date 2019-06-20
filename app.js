@@ -51,6 +51,7 @@ app.use(function(req, res, next){
 //PASSPORT MIDDLEWARE
 app.use(passport.initialize());
 app.use(passport.session());
+// app.use(require('./config/passport'));
 
 app.get('/', (req, res) => {
     res.render('index');
