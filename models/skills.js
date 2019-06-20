@@ -7,7 +7,7 @@ module.exports = (sequelize, DataTypes) => {
     freezeTableName: true});
   skills.associate = function(models) {
     // associations can be defined here
-    models.user.belongsToMany(models.skills, {through: userskills})
+    models.user.belongsToMany(models.skills, {through: models.userSkills})
   };
   return skills;
 };

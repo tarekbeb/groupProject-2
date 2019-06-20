@@ -13,7 +13,7 @@ module.exports = (sequelize, DataTypes) => {
   user.associate = function(models) {
     // associations can be defined here
     models.project.belongsToMany(models.user, {through: models.userproject});
-    models.skills.belongsToMany(models.user, {through: userskills})
+    models.skills.belongsToMany(models.user, {through: models.userSkills})
   };
   return user;
 };
