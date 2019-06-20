@@ -8,7 +8,7 @@
             </h1>
             <!-- THIS FORM GOES TO USERS AND IT'S GOING TO BE A POST REQUEST 
             -->
-            <form action="/register" method="POST">
+            <form action="/feed" method="POST">
                 <div class="form-group">
                     <label for="pName">Project Name</label>
                     <input type="text"
@@ -22,7 +22,7 @@
                     <label for="sel1">Select Industry:</label>
                     <select class="form-control" id="industry" name="industry" type="text">
                         <% industry.forEach(record => { %>
-                        <option><%= record.industryName %></option>
+                        <option value="<%= record.id %>"><%= record.industryName %></option>
                         <% }) %>
                     </select>
                   </div>
