@@ -25,7 +25,7 @@ IF SUCCESS MSG ISN'T EQUAL TO AN EMPTY STRING THEN SHOW THE SUCCESS MESSAGE -->
 <% } %>
 
 <!-- THIS IS THE ERROR FOR LOGIN IF EMAIL ISN'T REGISTERED OR FIELDS DO NOT MATCH -->
-<% if(error != '') { %>
+<% if(error_msg != '') { %>
     <div class="alert alert-success alert-dismissible fade show" role="alert">
             <%= error.msg %>
         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
