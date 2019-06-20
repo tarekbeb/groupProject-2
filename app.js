@@ -1,8 +1,8 @@
 var express = require('express');
 var session = require('express-session');
-// var db = require('../models');
-// var SequelizeStore = require('connect-session-sequelize')(session.Store);
-// var localStrategy = require('passport-local').Strategy;
+var db = require('./models');
+var SequelizeStore = require('connect-session-sequelize')(session.Store);
+var localStrategy = require('passport-local').Strategy;
 var passport = require('passport');
 var flash = require('connect-flash');
 var bodyParser = require('body-parser');
@@ -15,9 +15,9 @@ let app = express();
 // sessions(optional)
 
 //SETUP
-// var myStore = new SequelizeStore({
-//     db: db.sequelize 
-// })
+var myStore = new SequelizeStore({
+    db: db.sequelize 
+})
 
 //EXPRESS BODY PARSER
 app.use(bodyParser.urlencoded({extended: false}));
@@ -30,7 +30,7 @@ app.use(session({
     // store: myStore
 }));
 
-// myStore.sync(); 
+myStore.sync(); 
 
 //SETUP
 app.set('view engine', 'ejs');
@@ -53,12 +53,15 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 app.get('/', (req, res) => {
-    res.send('index');
+    res.render('index');
 })
 
 //ROUTES
 app.use(require('./routes/index'));
 app.use(require('./routes/users'));
+app.use(require('./routes/newProject'))
+app.use(require('./routes/ideas'))
+app.use(require('./routes/feed'))
 
 
 const port = 3000;

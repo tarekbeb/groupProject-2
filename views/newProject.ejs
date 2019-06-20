@@ -1,0 +1,58 @@
+<% include partials/template/header.ejs %>
+<body>
+<div class="row mt-5">
+        <div class="col-md-6 m-auto">
+          <div class="card card-body">
+            <h1 class="text-center mb-3">
+              <i class="fas fa-user-plus"></i> Create New Project
+            </h1>
+            <!-- THIS FORM GOES TO USERS AND IT'S GOING TO BE A POST REQUEST 
+            -->
+            <form action="/feed" method="POST">
+                <div class="form-group">
+                    <label for="pName">Project Name</label>
+                    <input type="text"
+                    id="pName"
+                    name="pName"
+                    class="form-control"
+                    placeholder="Enter Project Name"
+                    value="<%= typeof pName != 'undefined' ? pName : '' %>">
+                </div>
+                <div class="form-group">
+                    <label for="sel1">Select Industry:</label>
+                    <select class="form-control" id="industry" name="industry" type="text">
+                        <% industry.forEach(record => { %>
+                        <option value="<%= record.id %>"><%= record.industryName %></option>
+                        <% }) %>
+                    </select>
+                  </div>
+              <div class="form-group">
+                <label for="description">Description</label>
+                <textarea
+                  type="text"
+                  id="description"
+                  name="description"
+                  class="form-control"
+                  placeholder="Describe your project here"
+                  rows="3"
+                  value="<%= typeof description != 'undefined' ? description : '' %>"
+                ></textarea>
+              </div>
+              <div class="form-group">
+                    <label for="summary">Summary</label>
+                    <input type="text"
+                    id="summary"
+                    name="summary"
+                    class="form-control"
+                    placeholder="Two words Summary"
+                    value="<%= typeof summary != 'undefined' ? summary : '' %>">
+                </div>
+              <button type="submit" class="btn btn-primary btn-block">
+                Create Project
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+
+<% include partials/template/scripts.ejs %>

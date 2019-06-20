@@ -3,38 +3,38 @@ var router = express.Router();
 var bcrypt = require('bcryptjs');
 var passport = require('passport');
 var db = require('../models');
-let SequelizeStore = require('connect-session-sequelize')(session.Store);
-var localStrategy = require('passport-local').Strategy
+
+
 
 
 
 //LOADING USER MODELS/PROFILES
-var User = require('../models/profile')
-var forwardAuthenticated = require('../config/auth');
+var User = require('../models/user')
+var { forwardAuthenticated } = require('../config/auth');
 
 //LOGIN PAGE
-router.get('/login', forwardAuthenticated((req, res) => {
+router.get('/login', forwardAuthenticated, ((req, res) => {
     res.render('login');
 }))
 
 //REGISTRATION
-router.get('/register', forwardAuthenticated((req, res) => {
+router.get('/register', forwardAuthenticated, ((req, res) => {
     res.render('register');
 }))
 
 //REGISTER HANDLE
 router.post('/register', ((req, res) => {
-    // const {fname, lname, email, username, password, password2} = req.body;
-    var fname = req.body.fname;
-    var lname = req.body.lname;
+    // const {fName, lName, email, username, password, password2} = req.body;
+    var fName = req.body.fName;
+    var lName = req.body.lName;
     var email = req.body.email;
     var username = req.body.username;
-    var password = req.body.password;
+    let password = req.body.password;
     var password2 = req.body.password2;
     let errors = [];
 
     //CHECK REQUIRED FIELDS
-    if(!fname || !lname || !email || !username || !password || !password2){
+    if(!fName || !lName || !email || !username || !password || !password2){
         errors.push({msg: 'Please fill in all fields'})
     }
 
@@ -52,80 +52,91 @@ router.post('/register', ((req, res) => {
     if(errors.length > 0){
         res.render('register', {
             errors,
-            fname,
-            lname,
+            fName, 
+            lName, 
             username,
             email,
             password,
             password2
         });
     } else {
-        User.findOne({email: email})
-        .then(user =>{
-            if (profile) {
+        db.user.findOne({where: { email: email }})
+        .then(person =>{
+            console.log(person);
+            if (person) {
                 errors.push({msg: 'Email already exists'});
                 res.render('register', {
                     errors,
-                    fname,
-                    lname,
+                    fName, 
+                    lName, 
                     username,
                     email,
                     password,
                     password2
                 });
             } else {
-                var newUser = new User({
-                    fname, 
-                    lname, 
-                    username,
-                    email,
-                    password
-
-                });
-                //HASH PASSWORD, MUST USE BCRYPTJS
-                //MUST GENERATE A SALT TO GET A HASH
-                //EVERY SALT GENERATES A HASH--NESTED
-                bcrypt.genSalt(10, (err, salt)=>{
-                    bcrypt.hash(newUser.password, salt, (err, hash)=>{
-                        if (err)
-                        throw err;
-                        newUser.password = hash; //SET THE NEW USER PASSWORD TO HASHED
-                        newUser.save() //SAVES NEW USER
-                            .then(user => { 
-                                req.flash(
-                                    'success_msg', 
-                                    'You are now registed and can log in'//CREATES THE FLASH MESSAGE. BECAUSE REDIRECTING STORES THE MESSAGE IN THE SESSION
-                                );
-                                res.redirect('/login');
-                            })
-                            .catch(err => console.log(err));
-                    });
-                });
+                let password = bcrypt.hashSync(req.body.password, 8);
+                db.user.create({fName:fName, lName:lName, username:username, email:email, password:password})    
+                .then((result) => {
+                    req.flash(
+                        'success_msg',
+                        'You are now registered and can log in'
+                    );
+                    res.redirect('/login')
+                })
+                .catch((error) => {
+                    res.send(error)
+                })
+                // var newUser = new User({
+                //     fName:fName, 
+                //     lName:lName, 
+                //     username:username,
+                //     email:email,
+                //     password:password
+                // });
+                // console.log(newUser);
+                // //HASH PASSWORD, MUST USE BCRYPTJS
+                // //MUST GENERATE A SALT TO GET A HASH
+                // //EVERY SALT GENERATES A HASH--NESTED
+                // bcrypt.genSalt(10, (err, salt)=>{
+                //     bcrypt.hash(newUser.password, salt, (err, hash)=>{
+                //         if (err) throw err;
+                //         let password = bcrypt.hashSync(req.body.password, 8); //SET THE NEW USER PASSWORD TO HASHED
+                //         db.user.create({newUser}) //SAVES NEW USER
+                //             .then(user => {
+                //                 console.log(`${username}, ${fName}, ${lName}`);
+                //                 req.flash(
+                //                     'success_msg', 
+                //                     'You are now registed and can log in'//CREATES THE FLASH MESSAGE. BECAUSE REDIRECTING STORES THE MESSAGE IN THE SESSION
+                //                 );
+                //                 res.redirect('./login');
+                //             })
+                //             .catch(err => console.log(err));
+                //     });
+                // });
             }
         });
     }
-    
-    
-    User.create({fname:fname, lname:lname, username:username, email:email, password:password})    
-    .then((result) => {
-        // res.redirect('/login')
-        console.log(`${username}, ${fname}, ${lname} ${email}`);
-    })
-    .catch((error) => {
-        res.send(error)
-    })
-    // res.send('register post afterwards')    
 }));
 
 //LOGIN
-router.post('/login', (req, res, next) => {
+// router.post('/login', (req, res, next) => {
+//     passport.authenticate('local', { //USING THE LOCAL STRATEGY
+//       successRedirect: '/index', //ON SUCCESS REDIRECT TO /DASHBOARD
+//       failureRedirect: '/login', //ON FAILURE STAY OR GO TO LOGIN BASICALLY
+//       failureFlash: true //SHOW FLASH MESSAGE ON FAILURE
+//     })(req, res, next); //DOCUMENTATION
+//     console.log(req.session.id);
+//   });
+  
+  router.post('/login', 
     passport.authenticate('local', { //USING THE LOCAL STRATEGY
-      successRedirect: '/dashboard', //ON SUCCESS REDIRECT TO /DASHBOARD
+      successRedirect: '/index', //ON SUCCESS REDIRECT TO /DASHBOARD
       failureRedirect: '/login', //ON FAILURE STAY OR GO TO LOGIN BASICALLY
       failureFlash: true //SHOW FLASH MESSAGE ON FAILURE
-    })(req, res, next); //DOCUMENTATION
-  });
-  
+    }) //DOCUMENTATION
+  );
+
   //LOGOUT
   router.get('/logout', (req, res) => {
     req.logout();

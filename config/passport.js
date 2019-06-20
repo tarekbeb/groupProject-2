@@ -1,19 +1,15 @@
 const LocalStrategy = require('passport-local').Strategy;
 const bcrypt = require('bcryptjs');
-const User = require('../models/profile')
+const db = required('../models')
 
-//~~~NOTE TO SELF~~~
-//CHECK IF 'user' IS DOCUMENTATION OR REFERRING TO DATABASE
 
-//LOAD USER MODEL THROUGH DATABASE
-// const User = require('../models...');
 
 module.exports = function(passport) {
   passport.use(
     new LocalStrategy({ usernameField: 'email' }, (email, password, done) => {
       //MATCH USER
       //FINDS IF EMAIL MATCHES EMAIL
-      User.findOne({email: email})
+      db.user.findOne({email: email})
       .then(user => {
         if (!user) {//IF NO USER--OR NO MATCH RETURN DONE AND NULL FOR THE USER
           return done(null, false, { message: 'That email is not registered' });
@@ -42,7 +38,7 @@ module.exports = function(passport) {
   });
 
   passport.deserializeUser(function(id, done) {
-    User.findById(id, function(err, user) {
+    db.user.findById(id, function(err, user) {
       done(err, user);
     });
   });
