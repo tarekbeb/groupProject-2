@@ -1,20 +1,19 @@
 var express = require('express');
 var router = express.Router();
-var bcrip = require('bcryptjs');
+var bcrypt = require('bcryptjs');
 var passport = require('passport');
-var flash = require('flash');
 
 //LOADING USER MODELS/PROFILES
 var User = require('../models/profile')
-var forwardAuthenticated = require('../config/auth');
+// var forwardAuthenticated = require('../config/auth');
 
 //LOGIN PAGE
-router.get('/login', forwardAuthenticated, ((req, res) => {
+router.get('/login', ((req, res) => {
     res.render('login');
 }))
 
 //REGISTRATION
-router.get('/register', forwardAuthenticated, ((req, res) => {
+router.get('/register', ((req, res) => {
     res.render('register');
 }))
 
@@ -41,7 +40,7 @@ router.post('/register', ((req, res) => {
 
     //CHECK PASS LENGTH
     if(password.length < 8){
-        errors.push({msg: 'Password should at least be 6 characters long'})
+        errors.push({msg: 'Password should at least be 8 characters long'})
     }
 
     //LENGTH OF ARRAY OF ERRORS WILL POP UP ON REGISTRATION
@@ -56,9 +55,9 @@ router.post('/register', ((req, res) => {
             password2
         });
     } else {
-        users.findOne({email: email})
+        db.profile.findOne({email: email})
         .then(user =>{
-            if (user) {
+            if (profile) {
                 errors.push({msg: 'Email already exists'});
                 res.render('register', {
                     errors,
@@ -78,17 +77,19 @@ router.post('/register', ((req, res) => {
                     password
 
                 });
-                bcrip.genSalt(10, (err, salt)=>{
-                    bcrip.hash(newUser.password, salt, (err, hash)=>{
+                //HASH PASSWORD, MUST USE BCRYPTJS
+                //MUST GENERATE A SALT TO GET A HASH
+                //EVERY SALT GENERATES A HASH--NESTED
+                bcrypt.genSalt(10, (err, salt)=>{
+                    bcrypt.hash(newUser.password, salt, (err, hash)=>{
                         if (err)
                         throw err;
-                        newUser.password = hash;
-                        newUser 
-                            .save()
-                            .then(user => {
+                        newUser.password = hash; //SET THE NEW USER PASSWORD TO HASHED
+                        newUser.save() //SAVES NEW USER
+                            .then(user => { 
                                 req.flash(
-                                    'success_msg',
-                                    'You are now registed and can log in'
+                                    'success_msg', 
+                                    'You are now registed and can log in'//CREATES THE FLASH MESSAGE. BECAUSE REDIRECTING STORES THE MESSAGE IN THE SESSION
                                 );
                                 res.redirect('/login');
                             })
@@ -98,21 +99,34 @@ router.post('/register', ((req, res) => {
             }
         });
     }
-
-
-    let password = bcrip.hasSync(req.body.password, 8);
-
     
-    // db.profile.create({username: username, password:password, email:email, name:name})
-    // .then((result) => {
-    //     // res.redirect('/login')
-    //     console.log(`${username}, ${name}, ${email}`);
-    // })
-    // .catch((error) => {
-    //     res.send(error)
-    // })
+    
+    db.profile.create({fname:fname, lname:lname, username:username, email:email, password:password})    
+    .then((result) => {
+        // res.redirect('/login')
+        console.log(`${username}, ${fname}, ${lname} ${email}`);
+    })
+    .catch((error) => {
+        res.send(error)
+    })
     // res.send('register post afterwards')    
 }));
+
+//LOGIN
+router.post('/login', (req, res, next) => {
+    passport.authenticate('local', { //USING THE LOCAL STRATEGY
+      successRedirect: '/dashboard', //ON SUCCESS REDIRECT TO /DASHBOARD
+      failureRedirect: '/login', //ON FAILURE STAY OR GO TO LOGIN BASICALLY
+      failureFlash: true //SHOW FLASH MESSAGE ON FAILURE
+    })(req, res, next); //DOCUMENTATION
+  });
+  
+  //LOGOUT
+  router.get('/logout', (req, res) => {
+    req.logout();
+    req.flash('success_msg', 'You are logged out');
+    res.redirect('/login');
+  });
 
 
 

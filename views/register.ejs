@@ -1,4 +1,5 @@
 <% include partials/template/header.ejs %>
+
 <body>
 <div class="row mt-5">
         <div class="col-md-6 m-auto">
@@ -8,6 +9,7 @@
             </h1>
             <!-- THIS FORM GOES TO USERS AND IT'S GOING TO BE A POST REQUEST 
             -->
+            <% include ./partials/errorMessages.ejs %>
             <form action="/register" method="POST">
               <div class="form-group">
                 <label for="fname">First Name</label>

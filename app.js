@@ -1,10 +1,13 @@
 var express = require('express');
 var session = require('express-session');
-let app = express();
-var db = require('./models');
-var SequelizeStore = require('connect-session-sequelize')(session.Store);
-var localStrategy = require('passport-local').Strategy;
+// var db = require('./models');
+// var SequelizeStore = require('connect-session-sequelize')(session.Store);
+// var localStrategy = require('passport-local').Strategy;
 var passport = require('passport');
+var flash = require('connect-flash');
+var bodyParser = require('body-parser');
+let app = express();
+
 
 // THREE PIECES NEED TO BE CONFIGURED TO USE PASSPORT FOR AUTHENTICATION
 // authentication strategies
@@ -12,18 +15,22 @@ var passport = require('passport');
 // sessions(optional)
 
 //SETUP
-var myStore = new SequelizeStore({
-    db: db.sequelize 
-})
+// var myStore = new SequelizeStore({
+//     db: db.sequelize 
+// })
 
+//EXPRESS BODY PARSER
+app.use(bodyParser.urlencoded({extended: false}));
+
+//EXPRESS SESSION
 app.use(session({
     secret: 'dog eats cats',
     resave: false,
-    proxy: true,
-    store: myStore
+    saveUninitialized: true
+    // store: myStore
 }));
 
-myStore.sync(); 
+// myStore.sync(); 
 
 //SETUP
 app.set('view engine', 'ejs');
@@ -32,26 +39,25 @@ app.set('views', 'views');
 app.use(express.static('public'));
 
 //CONNECT FLASH
+//GLOBAL VARIABLES
 app.use(flash());
-
 app.use(function(req, res, next){
+    res.locals.success_msg = req.flash('success_msg');
     res.locals.error_msg = req.flash('error_msg');
     next();
 })
 
-// app.use(passport.initialize());
-// app.use(passport.session());
+//PASSPORT MIDDLEWARE
+app.use(passport.initialize());
+app.use(passport.session());
 
 app.get('/', (req, res) => {
     res.send('index');
 })
 
-
+//ROUTES
 app.use(require('./routes/index'));
 app.use(require('./routes/users'));
-
-
-// app.use(bodyParser.urlencoded({extended: false}));
 
 
 const port = 3000;
