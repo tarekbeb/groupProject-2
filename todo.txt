@@ -1,0 +1,17 @@
+ responsiveness
+
+background color for cards with border
+
+put cards in a tag
+
+summary limit to a couple sentences
+
+add header partial for header and footer
+
+sort and filter below navbar
+
+
+HEADER
+-profile
+-my ideas
+-About the page
