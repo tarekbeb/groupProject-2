@@ -22,8 +22,20 @@ router.post('/feed', ((req, res) => {
     let industryId = req.body.industry
     let description = req.body.description
     let summary = req.body.summary;
+    // let userId = req.session.id
+    let userID  = 2;
+
+    db.project.create({pName:pName, description:description, summary:summary, industryID:industryId})
     
-    db.project.create({pName:pName, description:description, summary:summary, industryID:industryId,})
+    .then((result) =>{
+        
+        db.project.findAll({
+            where : {pName : pName}
+        })
+        .then((result)=>{
+            db.userProject.create({userID:userID, projectID:result[0].dataValues.id})
+        })
+        })
     .then(result =>{
         db.project.findAll()
         .then((records)=>{
@@ -36,6 +48,8 @@ router.post('/feed', ((req, res) => {
         }) 
     }) 
 }))
+
+
 
 
 module.exports = router;

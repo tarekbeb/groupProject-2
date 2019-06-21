@@ -8,7 +8,7 @@ module.exports = (sequelize, DataTypes) => {
   }, {freezeTableName: true});
   project.associate = function(models) {
     // associations can be defined here
-    models.user.belongsToMany(models.project, {through: models.userproject})
+    models.user.belongsToMany(models.project, {through: models.userProject, foreignKey: 'userID'})
     models.project.belongsTo(models.industry, {foreignKey: 'industryID'})
   };
   return project;
