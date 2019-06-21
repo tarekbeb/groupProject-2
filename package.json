@@ -15,6 +15,8 @@
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.19.0",
+    "connect-flash": "^0.1.1",
+    "connect-session-sequelize": "^6.0.0",
     "cookie-parser": "^1.4.4",
     "ejs": "^2.6.2",
     "express": "^4.17.1",
@@ -24,6 +26,7 @@
     "pbkdf2": "^3.0.17",
     "pg": "^7.11.0",
     "pg-hstore": "^2.3.3",
+    "req-flash": "0.0.3",
     "sequelize": "^5.8.10"
   }
 }
