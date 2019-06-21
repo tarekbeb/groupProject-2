@@ -6,7 +6,7 @@ let db = require('../models');
 
 
 
-passport.use(new LocalStrategy((email, password, done) => {
+passport.use(new LocalStrategy({usernameField: 'email', passwordField: 'password'}, (email, password, done) => {
   console.log("I'm in passport");
 
   db.user.findAll({where: {email: email}})
@@ -15,11 +15,11 @@ passport.use(new LocalStrategy((email, password, done) => {
           let record = results[0];
           //right now the password is encrypted
           //bcrip will compare the user input password to the database password
-          bcrip.compare(password, record.password, (error, response) => {
+          bcrypt.compare(password, record.password, (error, response) => {
               if(response){ 
                   console.log('password matched');
                   //serialize user gets called
-                  done(null, {id: record.id, username: record.username})
+                  done(null, {id: record.id, email: record.email})
               } else {
                   console.log('password not matched ');
                   done(null, false);
@@ -71,7 +71,7 @@ passport.use(new LocalStrategy((email, password, done) => {
   });
 
   passport.deserializeUser(function(id, done) {
-    db.user.findById(id, function(err, user) {
+    db.user.findByPk(id, function(err, user) {
       done(err, user);
     });
   });
