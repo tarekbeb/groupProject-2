@@ -26,20 +26,16 @@ let bodyParser = require('body-parser');
 
 
 
-const projectData =  db.project.findAll();
 const industryData =  db.industry.findAll();
 
 router.get('/ideaPage/:ideaID', (req, res) => {
+    let projectData =  db.project.findByPk(req.params.ideaID)
     Promise
     .all([projectData, industryData])
         .then(records => {
-            if(project.id == req.params.ideaID){
-                ideas.push(project)
-            }
             res.render('ideaPage', {
-                project: records[0],
+                project: records,
                 industry: records[1],
-                ideas: ideas
 
             })
         })
