@@ -48,7 +48,7 @@
     <div class="container-fluid">
         <div class="row">
         <% project.forEach(record => { %>
-            <div class="col-sm-6 col-md-6 col-lg-3 test">
+            <div class="col-sm-6 col-md-6 col-lg-3 <%=record.industryID%>">
                 <div id="carder" class="card mb-5 mt-2" style="border: none">
                         <a href="/" style="color: black; text-decoration: none;">
                         <!-- <% if (record.id === 1){ %>
@@ -80,6 +80,7 @@
                         <!-- <div class="card-body" style="background-image: linear-gradient(rgb(189, 196, 189), rgb(209, 221, 209))"> -->
                         <div class="card-body" style="background-color: gray">
 
+                            <p class="industryNumber<%=record.industryID%>" id="industryNumber<%=record.industryID%>"><%=record.industryID%></p>
                         </div>
 
                 </div>
@@ -111,12 +112,32 @@
             $(this).css("background-color", "gray");
             });
         
-        $(".dropdown-item").click(function() {
-            $(".test").hide()
-        })
+        // var elementClicked;
+        // $("#industry1").click(function(){
+        //     elementClicked = true;
+        // });
+        // if (elementClicked == true){
+        //     $(".industryNumber").text('hello')
+        // }
 
+        var test = $("#industryNumber1").text();
+        if (test === "1"){
+            $(".industryNumber1").text('Oil and Gas')
+        }
+        var test3 = $("#industryNumber3").text();
+        if (test3 === "3"){
+            $(".industryNumber3").text('IT')
+        }
+        
 
-    });
+        // for (let x=1; x<12; x++){
+        //     if (x === "1"){
+        //         $(".industryNumber1").text('Oil and Gas')
+        //     }
+        // }
+
+    
+    }); //end JQuery document.ready
 
     </script>
 

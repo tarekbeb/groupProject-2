@@ -27,54 +27,7 @@ router.get('/ideas', (req, res) => {
 
 
 
-// router.get('/ideas', (req, res) => {
-//     db.industry.findAll()
-//     .then(industryResult =>{
-//         industryResult.forEach(e =>{
-//             console.log(`${e.dataValues.industryName} and the id is ${e.dataValues.id}`)
-//         })
-//     })
-//     db.project.findAll()
-//         .then(projectRecords => {
-//             projectRecords.forEach(element => {
-//                 // console.log(element.dataValues.industryID)
-//             })
-//             })
 
-//             // res.send('inside of findall')
-//             // db.industry.findAll({
-//             //     where : {industryID : element.industryID}
-//             // })
-//             .then(records =>{
-//                 res.render('ideas', {
-//                     project: projectRecords,
-//                     industry: industryResult
-//                 })
-//             })
-          
-        
-//         .catch((error) => {
-//           res.send(error)
-//         })
-//     })
-    
-
-
-router.get('/ideas', (req, res) => {
-    db.industry.findAll()
-        .then(records => {
-            records.forEach(element => {
-            })
-            // console.log(records.data)
-
-            // res.send('inside of findall')
-          res.render('ideas', {
-              industry: records
-          })
-        })
-        .catch((error) => {
-          res.send(error)
-        })})
 
 
 
