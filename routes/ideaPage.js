@@ -36,6 +36,7 @@ router.get('/ideaPage/:ideaID', (req, res) => {
             res.render('ideaPage', {
                 project: records,
                 industry: records[1],
+                
 
             })
         })
