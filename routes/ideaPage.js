@@ -4,26 +4,6 @@ let db = require('../models');
 let bodyParser = require('body-parser');
 
 
-//THIS WORKS~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-// const projectData =  db.project.findAll()
-// const industryData =  db.industry.findAll()
-
-// router.get('/ideaPage', (req, res) => {
-//     Promise
-//     .all([projectData, industryData])
-//         .then(records => {
-//             res.render('ideaPage', {
-//                 project: records[0],
-//                 industry: records[1]
-
-//             })
-//         })
-//         .catch((error) => {
-//         res.send(error)
-//         })
-//     })
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
 
 
 const industryData =  db.industry.findAll();

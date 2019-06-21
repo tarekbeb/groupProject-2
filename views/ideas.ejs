@@ -41,8 +41,8 @@
                             <% }) %> 
                       </div>
                     </li>
-                    <li class="nav-item" style="margin: 0vw 0vw 0vw 60vw">
-                            <button id="createProjectButton"><a href="/newProject" style="color: black; text-decoration: none">Create Your Own Project</button></a>
+                    <li class="nav-item" style="margin: 0vw 5vw 0vw 60vw">
+                            <button id="createProjectButton"><a href="/newProject" style="color: black; text-decoration: none">Share Your Idea!</button></a>
                     </li>
                   </ul>
                 </div>
@@ -62,7 +62,7 @@
                                 <%} else{ %>
                                     <div style="background-image: linear-gradient(rgb(9, 160, 35), rgb(18, 95, 25)); height:10vh"></div>
                             <% } %> -->
-                        <div class="card-body carder" style="height: 20vh;">
+                        <div class="card-body carder" style="height: 20vh; overflow: auto;">
                         <h5 class="card-title"><%= record.pName %></h5>
                         <p class="card-text"><%= record.summary %></p>
                         </div>
@@ -81,7 +81,7 @@
                         </li>
                         </ul>
                         <!-- <div class="card-body" style="background-image: linear-gradient(rgb(189, 196, 189), rgb(209, 221, 209))"> -->
-                        <div class="card-body" style="background-color: gray">
+                        <div class="card-body" style="background-color: gray; height: 10vh;">
 
                             <p class="industryNumber<%=record.industryID%>" id="industryNumber<%=record.industryID%>"><%=record.industryID%></p>
                         </div>
