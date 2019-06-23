@@ -23,8 +23,7 @@
   <body style="background-color: rgb(73, 72, 72)">
 
         <% include partials/template/header.ejs %>
-
-        <nav class="navbar navbar-expand navbar-dark bg-dark" style="border-top: 5px solid black;">
+        <nav class="navbar navbar-expand navbar-dark bg-dark" style="border-top: 5px solid black; height: 50px;">
                 
                 <div class="collapse navbar-collapse" id="navbarNavDropdown">
                   <ul class="navbar-nav">
@@ -54,6 +53,7 @@
             <div class="col-sm-6 col-md-6 col-lg-3 <%=record.industryID%>">
                 <div id="carder" class="card mb-5 mt-2" style="border: none">
                         <a href="/ideapage/<%=record.id%>" style="color: black; text-decoration: none;">
+
                         <!-- <% if (record.id === 1){ %>
                             <% } else if (record.id === 2){%> 
                                 <div style="background-image: linear-gradient(rgb(245, 12, 12), rgb(156, 46, 38)); height:10vh"></div>
@@ -62,6 +62,7 @@
                                 <%} else{ %>
                                     <div style="background-image: linear-gradient(rgb(9, 160, 35), rgb(18, 95, 25)); height:10vh"></div>
                             <% } %> -->
+
                         <div class="card-body carder" style="height: 20vh; overflow: auto;">
                         <h5 class="card-title"><%= record.pName %></h5>
                         <p class="card-text"><%= record.summary %></p>
@@ -78,7 +79,6 @@
                             <img src="/images/washington.jpg" height="75px" width="75px" alt="" style="border-radius: 50%;">
                             <img src="/images/washington.jpg" height="75px" width="75px" alt="" style="border-radius: 50%;"> -->
 
-                        </li>
                         </ul>
                         <!-- <div class="card-body" style="background-image: linear-gradient(rgb(189, 196, 189), rgb(209, 221, 209))"> -->
                         <div class="card-body" style="background-color: gray; height: 10vh;">
@@ -114,6 +114,7 @@
         $(".carder").mouseleave(function(){
             $(this).css("background-color", "gray");
             });
+
         $("#createProjectButton").mouseenter(function(){
             $(this).css("border", "5px solid yellow")
             });

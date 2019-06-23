@@ -12,3 +12,5 @@
 
 
 # sequelize model:generate --name userSkills --attributes userID:integer,skillsID:integer
+
+sequelize model:generate --name projectSkills --attributes projectId:integer,skillsId:integer
