@@ -42,23 +42,24 @@
                 </div>
                 <div class="w-100"></div>
                 <div class="col" style="background-color: rgb(253, 244, 231); margin: 0px 5vw 0px 5vw;">
-                    <div style="border: 1px solid black; margin: 5vw">
+                    <div style="border: 1px solid black; margin: 5vw; padding: 1vw; border-radius: 25px; text-align: center">
                     Contributors
+                    <% let users = project[0].summary.split(' ')%>
                     <div class="row">
-                        <div class="col contributor-box">
-                            hi
-                            <br>
-                            hi
+                            <% users.forEach(user => { %>
+                                <div class="col contributor-box" style="border-radius: 25px; text-align: center; background-color: gray">
+                                    <%=user%>
+                                    </div>
+                            <% }) %>
+                        <!-- <div class="col contributor-box">
+                        <%= users[1]%>
                         </div>
                         <div class="col contributor-box">
-                            hi
+                        <%= users[2]%>
                         </div>
                         <div class="col contributor-box">
-                            hi
-                        </div>
-                        <div class="col contributor-box">
-                            hi
-                        </div>
+                        <%= users[3]%>
+                        </div> -->
                     </div>
                     </div>
                 </div>
@@ -91,12 +92,14 @@
         //     .then
         // })
         
+
         
         
 
 
     
     }); //end JQuery document.ready
+
 
     </script>
 

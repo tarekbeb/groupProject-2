@@ -10,15 +10,17 @@ const industryData =  db.industry.findAll();
 
 router.get('/ideaPage/:ideaID', (req, res) => {
     let projectData =  db.project.findByPk(req.params.ideaID)
+
     Promise
     .all([projectData, industryData])
         .then(records => {
             res.render('ideaPage', {
                 project: records,
-                industry: records[1],
+                industry: records[1]
                 
 
             })
+            // console.log(records)
         })
         .catch((error) => {
         res.send(error)
