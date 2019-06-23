@@ -23,7 +23,19 @@ router.post('/feed', ((req, res) => {
     let description = req.body.description
     let summary = req.body.summary;
     
-    db.project.create({pName:pName, description:description, summary:summary, industryID:industryId,})
+    let userID  = 2;
+
+    db.project.create({pName:pName, description:description, summary:summary, industryID:industryId})
+    
+    .then((result) =>{
+        
+        db.project.findAll({
+            where : {pName : pName}
+        })
+        .then((result)=>{
+            db.userProject.create({userID:userID, projectID:result[0].dataValues.id})
+        })
+        })
     .then(result =>{
         db.project.findAll()
         .then((records)=>{

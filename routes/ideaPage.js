@@ -12,6 +12,7 @@ router.get('/ideaPage/:ideaID', (req, res) => {
     let projectData =  db.project.findByPk(req.params.ideaID)
     // let test = db.userProject.findAll({include: [{model: db.user}]})
     // let test = db.userProject.findAll()
+    // let userProject = db.userProject.findAll()
 
     Promise
     .all([projectData, industryData])
@@ -31,6 +32,36 @@ router.get('/ideaPage/:ideaID', (req, res) => {
     })
 
 
+
+
+
+// TAREK'S
+// const industryData =  db.industry.findAll();
+
+// router.get('/ideaPage/:ideaID', (req, res) => {
+//     let projectData =  db.project.findByPk(req.params.ideaID)
+//     // let test = db.userProject.findAll({include: [{model: db.user}]})
+//     let userproject = db.userProject.findAll({
+//         where : {projectID : req.params.ideaID}
+//     })
+
+//     Promise
+//     .all([projectData, industryData, userproject])
+//         .then(records => {
+//             res.render('ideaPage', {
+//                 project: records,
+//                 industry: records[1],
+//                 userproject: records[2]
+//                 // userProject: records[2]
+                
+
+//             })
+//             // console.log(records)
+//         })
+//         .catch((error) => {
+//         res.send(error)
+//         })
+//     })
 
 
 
