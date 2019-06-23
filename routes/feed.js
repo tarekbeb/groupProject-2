@@ -27,6 +27,8 @@ router.post('/feed', ((req, res) => {
 
     db.project.create({pName:pName, description:description, summary:summary, industryID:industryId})
     
+
+    
     .then((result) =>{
         
         db.project.findAll({
