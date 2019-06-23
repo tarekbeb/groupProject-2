@@ -10,13 +10,16 @@ const industryData =  db.industry.findAll();
 
 router.get('/ideaPage/:ideaID', (req, res) => {
     let projectData =  db.project.findByPk(req.params.ideaID)
+    // let test = db.userProject.findAll({include: [{model: db.user}]})
+    // let test = db.userProject.findAll()
 
     Promise
     .all([projectData, industryData])
         .then(records => {
             res.render('ideaPage', {
                 project: records,
-                industry: records[1]
+                industry: records[1],
+                // userProject: records[2]
                 
 
             })
