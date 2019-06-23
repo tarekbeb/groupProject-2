@@ -22,10 +22,12 @@ router.post('/feed', ((req, res) => {
     let industryId = req.body.industry
     let description = req.body.description
     let summary = req.body.summary;
-    
+    // let userId = req.session.id
     let userID  = 2;
 
     db.project.create({pName:pName, description:description, summary:summary, industryID:industryId})
+    
+
     
     .then((result) =>{
         
@@ -48,6 +50,8 @@ router.post('/feed', ((req, res) => {
         }) 
     }) 
 }))
+
+
 
 
 module.exports = router;
