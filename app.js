@@ -60,9 +60,11 @@ app.get('/', (req, res) => {
 //ROUTES
 app.use(require('./routes/index'));
 app.use(require('./routes/users'));
-app.use(require('./routes/newProject'));
-app.use(require('./routes/ideas'));
-app.use(require('./routes/feed'));
+app.use(require('./routes/newProject'))
+app.use(require('./routes/ideas'))
+app.use(require('./routes/feed'))
+app.use(require('./routes/ideaPage'))
+
 
 
 const port = 3000;

@@ -5,26 +5,30 @@ let bodyParser = require('body-parser');
 
 
 
-const projectData =  db.project.findAll()
-const industryData =  db.industry.findAll()
 
+const industryData =  db.industry.findAll();
 
-router.get('/ideas', (req, res) => {
+router.get('/ideaPage/:ideaID', (req, res) => {
+    let projectData =  db.project.findByPk(req.params.ideaID)
+    // let test = db.userProject.findAll({include: [{model: db.user}]})
+    // let test = db.userProject.findAll()
+
     Promise
     .all([projectData, industryData])
         .then(records => {
-            res.render('ideas', {
-                project: records[0],
-                industry: records[1]
+            res.render('ideaPage', {
+                project: records,
+                industry: records[1],
+                // userProject: records[2]
+                
 
             })
+            // console.log(records)
         })
-
         .catch((error) => {
         res.send(error)
         })
     })
-
 
 
 

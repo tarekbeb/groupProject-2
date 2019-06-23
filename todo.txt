@@ -32,7 +32,6 @@ Extra Features:
 
 background color for cards with border
 
-put cards in a tag
 
 summary limit to a couple sentences
 
