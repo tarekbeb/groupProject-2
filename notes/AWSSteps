@@ -1,0 +1,76 @@
+
+Sign in to AWS
+aws.amazon.com
+
+Services - top left navbar
+
+Database Section
+>RDS
+
+create database
+
+postgres
+
+only enable options eligible for RDS Free Usage Tier
+
+
+
+Specify Database Detailes
+
+SettingsDB instance identifier
+testdb
+
+master username
+admintestdb
+
+master password
+admin1234
+
+
+
+CONFIGURE ADVANCED SettingsDB
+public accessibility
+YES
+
+database name
+admintestdb
+
+
+
+
+POSTICO
+
+new favorite
+nickname: awtest
+testdb
+user: admintestdb
+pw: admin1234
+host: see AWS database setting connect > endpoint > copy/paste here
+
+
+
+in config file
+
+development
+username: postico username
+password: db password
+database: db name
+host: AWS endpoint
+dialect: postgres
+
+sequelize db:migrate
+will post migrations to AWS db
+
+
+everyone will use same credentials to log into same db
+
+
+put config information in git ignore file (someone can log into db with it)
+
+
+
+DELETE
+databases
+Actions
+delete
+turn of deletion protection

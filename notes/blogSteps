@@ -1,0 +1,240 @@
+mkdir blog
+
+npm init
+sequelize init
+
+npm install sequelize express ejs body-parser pg pg-hstore 
+
+
+
+create app.js
+
+    let express = require('express')
+    let app = express();
+
+    app.listen
+
+
+
+init.bash (for model commands)
+    sequelize model:generate --name categories --attributes title:string,description:string,imgURL:string
+
+    sequelize model:generate --name author --attributes firstName:string,lastName:string,bio:string,imgURL:string,contactInfo:string
+
+    sequelize model:generate --name blog --attributes title:string,abstract:string,body:string,isPublished:boolean,imgURL:string,authorID:integer,categoryID:integer
+    (~~authorID and categoryID above require the existence of author and category tables, so they should be created first)
+
+    sequelize model:generate --name comments --attributes title:string,message:string,name:string,email:boolean,blogID:integer
+    bash init.bash (execute commands in file)
+
+
+
+(migration files that get created run in order of creation, so the migrations have to be created in order, if there are any dependencies they should be last)
+
+
+this creates folder of models and migrations
+
+
+ASSOCIATIONS
+go into models folder to make associations
+
+a category can have many blogs - in categories migration:
+    models.categories.hasMany(models.blog) (~~should be same name as migration files)
+a blog belongs to a category - in blog migrations
+    models.blog.belongsTo(models.categories)
+
+an author can have many blogs but a blog can have one author
+    in author.js
+    models.author.hasMany(models.blog)
+    in blogs.js
+    models.blog.belongsTo(models.author)
+
+a blog has many comments
+    in blog.js
+    models.blog.hasMany(models.comments)
+    in comments.js
+    models.comments.belongsTo(models.blog)
+
+association creates a new id in the form of modelName + Id (catgoriesId)
+we want to override this naming convention to use our own
+
+    belongsTo 
+    models.blog.belongsTo(models.categories, {foreignKey: 'categoryID'}) - should sync to migrations file
+    models.blog.belongsTo(models.author, {foreignKey: 'authorID'})
+    models.comments.belongsTo(models.blog, {foreignKey: 'blogID'})
+
+    hasMany
+    models.blog.hasMany(models.comments, {foreignKey: 'blogID'})
+    models.categories.hasMany(models.blog, {foreignKey: 'categoryID'})
+    models.author.hasMany(models.blog, {foreignKey: 'authorID'})
+
+
+
+
+in blog.js - get rid of pluralization
+in author.js
+
+}, {
+    freezeTableName: true;
+});
+
+
+
+CREATE DB
+createdb blogDB
+
+go to config.json
+-delete test and production
+
+database blogDB
+username postgres
+dialect postgres
+
+
+
+INSERT FOREIGN KEYS INTO models
+BLOG MODEL
+blogs.authorID: {
+    type:
+    references: {
+        model: 'author', ~~what we are referencing
+        key: 'id' ~~id we are going to reference
+    }
+}
+
+categoryID: {
+    type:
+    references: {
+        model: '',
+        key: ''
+    }
+}
+
+
+MIGRATE FILES TO TABLE
+
+sequelize db:migrate
+
+
+
+
+MAKE SEED DATA FOR TABLES
+
+sequelize seed:generate --name categories
+
+creates seeders folder with categories file
+
+in categories seeder file
+
+return queryInterface.bulkINsert('categories', [{  ~~change name of table
+    title: 'JS'
+    description: 'false'
+    imageURL: '',
+    createdAt: new Date(),
+    updatedAt: new Date(),
+},
+{
+    title: 'node'
+    description: 'false'
+    imageURL: '',
+    createdAt: new Date(),
+    updatedAt: new Date(),
+},
+{
+    title: 'express'
+    description: 'false'
+    imageURL: '',
+    createdAt: new Date(),
+    updatedAt: new Date(),
+}])
+
+
+sequelize db:seed:all
+
+
+
+DONE WITH DATABASE
+
+
+MOVE ON TO APP
+
+create app.js
+
+let express
+let app
+let bodyParser
+
+app.set view engine
+app.set views
+
+app.get('/', (req, res) => {
+    
+})
+app.get('/admin', (req, res) => {
+
+})
+app.get('/details', (req, res) => {
+
+})
+app.get('/frontpage', (req, res) => {
+
+})
+
+
+VIEWS FOLDER WITH EJS FILES
+index.ejs
+
+display all the blogs on the ejs file
+
+in app.js
+let db = require('./models')
+
+app.get('/', (req, res) => {
+    db.blog.findAll()
+        .then((records) => {
+            res.render('index', {
+                blogs: records ~~array of records
+            })
+        })
+        .catch((err) => {
+            res.send('error')
+        })
+})
+
+
+MAKE DATABASE INFOR APPEAR ON EJS FILE
+IN INDEX.EJS
+
+<% blogs.forEach(blog => { %>
+    <h1> <%= blog.title %> </h1>
+    <h2> <%= blog.body %> </h2>
+})
+
+
+
+
+ADD BLOGS TO DATABASE
+
+create admin.ejs where the blog input will be (in the form of a form)
+
+<form action="/" method="POST"> ~~form data will post back to index page
+title: <input type='text' name='title'>
+body: <input type='text' name='body'>
+is published?: <input type='checkbox' name='isPublished'>
+
+<select name="categories" id="categories">
+    <% categories.forEach(category => { %>
+        <option value="<%= category.id %> <%= category.title %> </option>
+    })
+</select>
+<button>
+
+
+IN ADMIN.JS ~~sends database info to admin ejs so that you can select category in option in  form
+app.get('/admin)
+db.categories.findAll()
+.then((results) => {
+    res.render('admin', {
+        categories: results
+    })
+})
