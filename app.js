@@ -26,8 +26,8 @@ app.use(bodyParser.urlencoded({extended: false}));
 app.use(session({
     secret: 'dog eats cats',
     resave: false,
-    saveUninitialized: true
-    // store: myStore
+    saveUninitialized: true,
+    store: myStore
 }));
 
 myStore.sync(); 
@@ -65,7 +65,7 @@ app.use(require('./routes/ideas'))
 app.use(require('./routes/feed'))
 
 
-const port = 3000;
+const port = 5000;
 app.listen(port, ()=>{
     console.log(`Listening on port ${3000}`);
 })

@@ -60,21 +60,21 @@ router.get('/ideas', (req, res) => {
     
 
 
-router.get('/ideas', (req, res) => {
-    db.industry.findAll()
-        .then(records => {
-            records.forEach(element => {
-            })
-            // console.log(records.data)
+// router.get('/ideas', (req, res) => {
+//     db.industry.findAll()
+//         .then(records => {
+//             records.forEach(element => {
+//             })
+//             // console.log(records.data)
 
-            // res.send('inside of findall')
-          res.render('ideas', {
-              industry: records
-          })
-        })
-        .catch((error) => {
-          res.send(error)
-        })})
+//             // res.send('inside of findall')
+//           res.render('ideas', {
+//               industry: records
+//           })
+//         })
+//         .catch((error) => {
+//           res.send(error)
+//         })})
 
 
 

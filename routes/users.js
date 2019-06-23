@@ -25,7 +25,6 @@ router.get('/register', forwardAuthenticated, ((req, res) => {
 
 //REGISTER HANDLE
 router.post('/register', ((req, res) => {
-    // const {fName, lName, email, username, password, password2} = req.body;
     var fName = req.body.fName;
     var lName = req.body.lName;
     var email = req.body.email;
@@ -64,7 +63,6 @@ router.post('/register', ((req, res) => {
     } else {
         db.user.findOne({where: { email: email }})
         .then(person =>{
-            console.log(person);
             if (person) {
                 errors.push({msg: 'Email already exists'});
                 res.render('register', {
@@ -121,9 +119,9 @@ router.post('/register', ((req, res) => {
 //LOGIN
 router.post('/login',
     passport.authenticate('local', { //USING THE LOCAL STRATEGY
-      successRedirect: '/index', //ON SUCCESS REDIRECT TO /DASHBOARD
-      failureRedirect: '/login', //ON FAILURE STAY OR GO TO LOGIN BASICALLY
-      failureFlash: true //SHOW FLASH MESSAGE ON FAILURE
+      successRedirect: '/ideas', //ON SUCCESS REDIRECT TO /DASHBOARD
+      failureRedirect: '/login' //ON FAILURE STAY OR GO TO LOGIN BASICALLY
+    //   failureFlash: true //SHOW FLASH MESSAGE ON FAILURE
     }) //DOCUMENTATION 
 );
   
