@@ -19,6 +19,7 @@ var myStore = new SequelizeStore({
     db: db.sequelize 
 })
 
+
 //EXPRESS BODY PARSER
 app.use(bodyParser.urlencoded({extended: false}));
 
@@ -63,9 +64,13 @@ app.use(require('./routes/users'));
 app.use(require('./routes/newProject'))
 app.use(require('./routes/ideas'))
 app.use(require('./routes/feed'))
+app.use(require('./routes/ideaPage'))
 
 
-const port = 5000;
+
+
+const port = 3000;
+
 app.listen(port, ()=>{
     console.log(`Listening on port ${3000}`);
 })

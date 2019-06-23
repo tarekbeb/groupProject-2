@@ -25,6 +25,7 @@ router.get('/register', forwardAuthenticated, ((req, res) => {
 
 //REGISTER HANDLE
 router.post('/register', ((req, res) => {
+
     var fName = req.body.fName;
     var lName = req.body.lName;
     var email = req.body.email;
@@ -121,7 +122,6 @@ router.post('/login',
     passport.authenticate('local', { //USING THE LOCAL STRATEGY
       successRedirect: '/ideas', //ON SUCCESS REDIRECT TO /DASHBOARD
       failureRedirect: '/login' //ON FAILURE STAY OR GO TO LOGIN BASICALLY
-    //   failureFlash: true //SHOW FLASH MESSAGE ON FAILURE
     }) //DOCUMENTATION 
 );
   

@@ -27,6 +27,7 @@ router.get('/ideas', (req, res) => {
 
 
 
+
 // router.get('/ideas', (req, res) => {
 //     db.industry.findAll()
 //     .then(industryResult =>{
@@ -75,6 +76,7 @@ router.get('/ideas', (req, res) => {
 //         .catch((error) => {
 //           res.send(error)
 //         })})
+
 
 
 
