@@ -11,6 +11,10 @@
         <h1><%= record.pName %></h1>
         <h3><%= record.summary %></h3>
     <% }) %>
+    <% userproject.forEach(record => { %>
+        <h1><%= record.userID %></h1>
+        <h3><%= record.projectID %></h3>
+    <% }) %>
         
 </body>
 </html>

@@ -1,9 +1,11 @@
 const express = require('express');
 const router = express.Router();
 const db = require('../models');
+require('../config/passport')
+var { ensureAuthenticated } = require('../config/auth')
 
 
-router.get('/newProject', ((req, res) => {
+router.get('/newProject', ensureAuthenticated, ((req, res) => {
     db.industry.findAll()
         .then(records => {
           res.render('newProject', {
