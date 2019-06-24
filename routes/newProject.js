@@ -9,7 +9,8 @@ router.get('/newProject', ensureAuthenticated, ((req, res) => {
     db.industry.findAll()
         .then(records => {
           res.render('newProject', {
-              industry: records
+              industry: records,
+              user: req.user
           })
         })
         .catch((error) => {

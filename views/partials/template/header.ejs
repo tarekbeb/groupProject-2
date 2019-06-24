@@ -32,6 +32,11 @@
                   <button class="btn btn-secondary btn-block btnLightUp" id="createProjectButton"><a href="/newProject" class="text-light">Share Your Idea!</button></a>
               </li> 
               <li class="dropdown">
+                <% if (user) { %>
+                 <button type="button" class="btn btn-secondary btnLightUp" aria-haspopup="true" aria-expanded="false">
+                      <a href="/logout" class="text-light">Logout</a> 
+                  </button>
+                <% } else { %>
                   <button type="button" class="btn btn-secondary dropdown-toggle btnLightUp" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                       Login
                   </button>
@@ -76,6 +81,7 @@
                           </div>
                       </li>
                   </ul>
+                  <% } %>
               </li>
           </ul>
       </div>

@@ -54,7 +54,9 @@ app.use(passport.session());
 // app.use(require('./config/passport'));
 
 app.get('/', (req, res) => {
-    res.render('index');
+    res.render('index', {
+        user: req.user
+    });
 })
 
 //ROUTES

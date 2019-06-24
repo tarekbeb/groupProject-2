@@ -15,7 +15,8 @@ router.get('/ideas', (req, res) => {
         .then(records => {
             res.render('ideas2', {
                 project: records[0],
-                industry: records[1]
+                industry: records[1],
+                user: req.user
 
             })
         })
