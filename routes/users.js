@@ -76,7 +76,7 @@ router.post('/register', ((req, res) => {
                     password2
                 });
             } else {
-                // let password = bcrypt.hashSync(req.body.password, 8);
+                let password = bcrypt.hashSync(req.body.password, 8);
                 db.user.create({fName:fName, lName:lName, username:username, email:email, password:password})    
                 .then((user) => {
                     req.flash('success_msg', 'You are now registered and can log in');
