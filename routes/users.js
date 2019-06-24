@@ -121,7 +121,7 @@ router.post('/register', ((req, res) => {
 //LOGIN
 router.post('/login',
     passport.authenticate('local', { //USING THE LOCAL STRATEGY
-      successRedirect: '/index', //ON SUCCESS REDIRECT TO /DASHBOARD
+      successRedirect: '/ideas', //ON SUCCESS REDIRECT TO /DASHBOARD
       failureRedirect: '/login', //ON FAILURE STAY OR GO TO LOGIN BASICALLY
       failureFlash: true //SHOW FLASH MESSAGE ON FAILURE
     }) //DOCUMENTATION 

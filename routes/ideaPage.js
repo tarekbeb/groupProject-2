@@ -8,23 +8,60 @@ let bodyParser = require('body-parser');
 
 const industryData =  db.industry.findAll();
 
+
 router.get('/ideaPage/:ideaID', (req, res) => {
-    let projectData =  db.project.findByPk(req.params.ideaID)
-    // let test = db.userProject.findAll({include: [{model: db.user}]})
-    // let test = db.userProject.findAll()
-    // let userProject = db.userProject.findAll()
+    let projectData =  db.project.findByPk(req.params.ideaID);
+    let userProjectData = db.userProject.findAll()
+        .then((projectResult) => {
+            let userIdd = projectResult[0].dataValues.userID
+            console.log(userIdd)//returns 2
+            db.user.findAll()
+            .then(userRecord =>{
+                console.log(userRecord[0])
+                for (let i=0; i<userRecord.length; i++){
+                    // console.log(userRecord[i]) // returns all users
+                    console.log(projectResult.userID);
+                    if (userIdd == userRecord[i].dataValues.id){
+                        // console.log(userProjectData.userID)
+                        console.log('inside for loop')
+                        console.log(userRecord[i].dataValues.fName)
+                        break;
+                        // compare userID of project with userID of user's table and retrieving name of user 
+                    }
+                    
+                }
+            })
+        })
+        
+
+    
+
+    
+    
+    
+    
+
+
+    // let userProjectData = db.user.findAll({
+    //     include: [{
+    //     model: db.userProject}]
+    // })
+
 
     Promise
-    .all([projectData, industryData])
+    .all([projectData, industryData, userProjectData])
+    
         .then(records => {
             res.render('ideaPage', {
                 project: records,
                 industry: records[1],
-                // userProject: records[2]
+                user: records[2]
+                
                 
 
             })
             // console.log(records)
+
         })
         .catch((error) => {
         res.send(error)
@@ -34,7 +71,7 @@ router.get('/ideaPage/:ideaID', (req, res) => {
 
 
 
-
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // TAREK'S
 // const industryData =  db.industry.findAll();
 
@@ -62,6 +99,7 @@ router.get('/ideaPage/:ideaID', (req, res) => {
 //         res.send(error)
 //         })
 //     })
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
 
@@ -69,6 +107,8 @@ router.get('/ideaPage/:ideaID', (req, res) => {
 
 
 
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//POSTING
 // router.use(bodyParser.urlencoded({ extended: false }))
 // router.post('/', (req, res) => {
 
@@ -106,6 +146,7 @@ router.get('/ideaPage/:ideaID', (req, res) => {
 //     })
   
 // })
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
 module.exports = router;
