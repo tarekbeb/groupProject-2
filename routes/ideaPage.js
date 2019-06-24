@@ -6,34 +6,127 @@ let bodyParser = require('body-parser');
 
 
 
-const industryData =  db.industry.findAll();
-const userProjectData = db.userProject.findAll();
+
+// router.get('/ideaPage/:ideaID', (req, res) => {
+//     let industryData =  db.industry.findAll();
+//     let projectData =  db.project.findByPk(req.params.ideaID);
+//     let userProjectData = db.userProject.findAll({where: {projectID: req.params.ideaID}})
+//     let userData = db.user.findAll()
+
+//     //projectData._rejectionHandler0.dataValues >>> an object that contains one record from Project Table (from req.params.ideaID)
+//     //industryData >>> an array of objects that contain records from Industry Table
 
 
-router.get('/ideaPage/:ideaID', (req, res) => {
+//     Promise
+//     .all([projectData, industryData, userProjectData, userData])
+//         .then(records => {
+//             console.log(userProjectData);
+
+//             res.render('ideaPage', {
+//                 project: records,
+//                 industry: records[1],
+//                 userProj: records[2],
+//                 user: records[3],
+//             })
+            
+//             // console.log(records)
+
+//         })
+//         .catch((error) => {
+//         res.send(error)
+//         })
+//     })
+
+
+// router.get('/ideaPage/:ideaID', (req, res) =>{
+//     db.project.findAll({include: [{
+//         model: db.user,
+//         through: {
+//             attrubutes: ['id']
+//         }
+//     }], where: {id: req.params.ideaID}})
+//     .then((results)=>{
+//         results.forEach(project => {
+//             console.log(project.pName)
+//             project.users.forEach(user =>{
+//                 console.log(user.fName)
+//             })
+//         });
+//     })
+//     res.render('ideaPage', {
+
+//     }
+
+//     )
+// })
+
+router.get('/ideaPage/:ideaID', (req, res) =>{
+    let industryData =  db.industry.findAll();
     let projectData =  db.project.findByPk(req.params.ideaID);
     let userProjectData = db.userProject.findAll({where: {projectID: req.params.ideaID}})
     let userData = db.user.findAll()
-        // .then((projectResult) => {
-        //     let userIdd = projectResult[0].dataValues.userID
-        //     console.log(userIdd)//returns 2
-        //     db.user.findAll()
-        //     // .then(userRecord =>{
-        //     //     console.log(userRecord[0])
-        //     //     for (let i=0; i<userRecord.length; i++){
-        //     //         // console.log(userRecord[i]) // returns all users
-        //     //         console.log(projectResult.userID);
-        //     //         if (userIdd == userRecord[i].dataValues.id){
-        //     //             // console.log(userProjectData.userID)
-        //     //             console.log('inside for loop')
-        //     //             console.log(userRecord[i].dataValues.fName)
-        //     //             break;
-        //     //             // compare userID of project with userID of user's table and retrieving name of user 
-        //     //         }
+    let thing = db.project.findAll({include: [{
+        model: db.user,
+        through: {
+            attrubutes: ['id']
+        }
+    }], where: {id: req.params.ideaID}})
+    .then((results)=>{
+        results.forEach(project => {
+            console.log(project.pName)
+            project.users.forEach(user =>{
+                console.log(user.fName)
+
+            })
+            
+        });
+    })
+    res.render('ideaPage', {
+        users: results,
+        
+    }
+
+
+    )
+})
+
+
+
+
+
+
+
+
+
+// const industryData =  db.industry.findAll();
+// const userProjectData = db.userProject.findAll();
+
+
+// router.get('/ideaPage/:ideaID', (req, res) => {
+//     let projectData =  db.project.findByPk(req.params.ideaID);
+//     let userProjectData = db.userProject.findAll({where: {projectID: req.params.ideaID}})
+//         .then((projectResult) => {
+//             let userIdd = projectResult[0].dataValues.userID
+//             console.log(userIdd)//returns 2
+//             let userData = db.user.findAll()
+//             // db.user.findAll()
+//             .then(userRecord =>{
+//                 console.log(userRecord[0])
+//                 for (let i=0; i<userRecord.length; i++){
+//                     // console.log(userRecord[i]) // returns all users
+//                     console.log(projectResult.userID);
+//                     if (userIdd == userRecord[i].dataValues.id){
+//                         // console.log(userProjectData.userID)
+//                         console.log('inside for loop')
+//                         console.log(userRecord[i].dataValues.fName)
+//                         break;
+//                         // compare userID of project with userID of user's table and retrieving name of user 
+//                     }
                     
-        //     //     }
-        //     // })
-        // })
+//                 }
+//             })
+//         })
+//     })
 
 
     // let userProjectData = db.user.findAll({
@@ -42,42 +135,56 @@ router.get('/ideaPage/:ideaID', (req, res) => {
     // })
 
 
-    Promise
-    .all([projectData, industryData, userProjectData, userData])
-    
-        .then(records => {
-            let userDat = records[3]
-            let projectResult = records[2]
-            // console.log(userDat.length)
-            let userIdd = ()=>{
-                for (data in userProjectData){
-                    
-                }
-            }
-            projectResult[0]
-            console.log(userIdd)
-            let userList = []
-            // for (let i=0; i<userDat.length; i++){
-            //     if (userIdd == userDat[i].dataValues.id){
-            //         console.log(userDat[i].dataValues.fName)
-            //         // userList.push(userDat[i].dataValues.fName)
-            //     }
-            // }
-            res.render('ideaPage', {
-                project: records,
-                industry: records[1],
-                userProj: records[2],
-                user: records[3],
-                collabs: userList
-            })
-            
-            // console.log(records)
+//     Promise
+//     .all([projectData, industryData, userProjectData, userData])
+//     //userData is an array of objects, each object is a record in the User Table
+//     //projectData is 
+//         .then(records => {
 
-        })
-        .catch((error) => {
-        res.send(error)
-        })
-    })
+//             // ideaPageId = req.params.ideaID;
+//             // arrayOfUsers = []
+//             // userData.forEach(user => {
+//             //     if (user.id == ideaPageID){
+//             //         arrayOfUsers.push(user.fName);
+//             //     }
+//             // });
+
+
+
+
+//             // let userData = records[3]
+//             // console.log(userProjectData);
+//             // // console.log(userData);
+//             // let projectResult = records[2]
+//             // // console.log(userDat.length)
+//             // let userIdd = ()=>{
+//             //     for (data in userProjectData){
+                    
+//             //     }
+//             // }
+//             // projectResult[0]
+//             // console.log(userIdd)
+//             // let userList = []
+//             // // for (let i=0; i<userDat.length; i++){
+//             // //     if (userIdd == userDat[i].dataValues.id){
+//             // //         console.log(userDat[i].dataValues.fName)
+//             // //         // userList.push(userDat[i].dataValues.fName)
+//             // //     }
+//             // // }
+//             res.render('ideaPage', {
+//                 project: records,
+//                 industry: records[1],
+//                 userProj: records[2],
+//                 user: records[3],
+//             })
+            
+//             // console.log(records)
+
+//         })
+//         .catch((error) => {
+//         res.send(error)
+//         })
+//     })
 
 
 
