@@ -2,6 +2,8 @@ const express = require('express');
 const router = express.Router();
 const db = require('../models');
 const bodyParser = require('body-parser');
+const passport = require('passport')
+require('../config/passport')
 
 
 
@@ -27,8 +29,13 @@ router.post('/feed', ((req, res) => {
     let industryId = req.body.industry
     let description = req.body.description
     let summary = req.body.summary;
-    // let userId = req.session.id
-    let userID  = 2;
+    // let userID = passport.deserializeUser(function(id, done) {
+    //     db.user.findByPk(id, function(err, user) {
+    //       done(err, user);
+    //     });
+    // });
+    let userID = req.session.passport.user.id;
+    console.log(userID)
 
     db.project.create({pName:pName, description:description, summary:summary, industryID:industryId})
     
