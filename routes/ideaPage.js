@@ -84,30 +84,57 @@ router.get('/ideaPage/:ideaID', (req, res) => {
     let userIds = []
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //Grabbing user names through the join table (userProject) using user id and project id
-    db.project.findAll({include: [{model: db.user, through: {attrubutes: ['id']}}], where: {id: req.params.ideaID}})
-        .then((results)=>{
-            results.forEach(project => {
-                project.users.forEach(user =>{
-                    userNames.push(user.fName)
-                    userIds.push(user.id)
-                })
-            });
-        })
-        .then(()=>{
-            Promise
-            .all([industryData, userNames, projectData, userIds])
-            .then((records)=>{
-                res.render('ideaPage', {
-                    industryData: records[0],
-                    userNames: records[1],
-                    project : records[2],
-                    userIds : records[3]
-                })
-            })
-        })
+    // db.project.findAll({include: [{model: db.user, through: {attrubutes: ['id']}}], where: {id: req.params.ideaID}})
+    //     .then((results)=>{
+    //         results.forEach(project => {
+    //             project.users.forEach(user =>{
+    //                 userNames.push(user.fName)
+    //                 userIds.push(user.id)
+    //             })
+    //         });
+    //     })
+    //     .then(()=>{
+    //         Promise
+    //         .all([industryData, userNames, projectData, userIds])
+    //         .then((records)=>{
+    //             res.render('ideaPage', {
+    //                 industryData: records[0],
+    //                 userNames: records[1],
+    //                 project : records[2],
+    //                 userIds : records[3]
+    //             })
+    //         })
+    //     })
+    // })
+
+
+
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+db.project.findAll({include: [{model: db.user, through: {attrubutes: ['id']}}], where: {id: req.params.ideaID}})
+.then((results)=>{
+    results.forEach(project => {
+        project.users.forEach(user =>{
+            userNames.push(user.fName)
+            userIds.push(user)
+        })
+    });
+    // console.log(userIds);
 })
+.then(()=>{
+    Promise
+    .all([industryData, userNames, projectData, userIds])
+    .then((records)=>{
+        res.render('ideaPage', {
+            industryData: records[0],
+            userNames: records[1],
+            project : records[2],
+            userIds : records[3]
+        })
+    })
+})
+})
+
 
 
 
