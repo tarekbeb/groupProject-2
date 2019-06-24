@@ -7,6 +7,7 @@ router.get('/', ((req, res) => {
 }))
 
 router.get('/ideas', ensureAuthenticated, ((req, res) => {
+    console.log('hi')
     res.render('ideas');
     //MAYBE SAY HI TO USER? PASS NAME TO EJS DASHBOARD
     // name: req.user.fname

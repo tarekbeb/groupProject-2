@@ -7,24 +7,27 @@ let bodyParser = require('body-parser');
 
 
 const industryData =  db.industry.findAll();
+const userProjectData = db.userProject.findAll();
 
 router.get('/ideaPage/:ideaID', (req, res) => {
     let projectData =  db.project.findByPk(req.params.ideaID)
     // let test = db.userProject.findAll({include: [{model: db.user}]})
-    // let test = db.userProject.findAll()
-    // let userProject = db.userProject.findAll()
+    // let test = db.userProject.findAll();
 
     Promise
-    .all([projectData, industryData])
+    .all([projectData, industryData, userProjectData])
         .then(records => {
             res.render('ideaPage', {
                 project: records,
                 industry: records[1],
-                // userProject: records[2]
+                userProjectData: records[2]
                 
 
             })
-            // console.log(records)
+            userProject._rejectionHandler0.forEach((record) => {
+                if(record.dataValues.projectID == 54){
+                    console.log(record.dataValues.userID);
+            }})
         })
         .catch((error) => {
         res.send(error)
@@ -53,7 +56,6 @@ router.get('/ideaPage/:ideaID', (req, res) => {
 //                 industry: records[1],
 //                 userproject: records[2]
 //                 // userProject: records[2]
-                
 
 //             })
 //             // console.log(records)

@@ -7,7 +7,6 @@ let db = require('../models');
 
 
 passport.use(new LocalStrategy({usernameField: 'email', passwordField: 'password'}, (email, password, done) => {
-  console.log("I'm in passport");
 
   db.user.findAll({where: {email: email}})
   .then((results) => {
@@ -67,13 +66,23 @@ passport.use(new LocalStrategy({usernameField: 'email', passwordField: 'password
   //SESSIONS TO SERIALIZE AND DESERIALIZE
   //DOCUMENTATION
   passport.serializeUser(function(user, done) {
+    console.log('session serialize');
     done(null, user.id);
   });
 
   passport.deserializeUser(function(id, done) {
-    db.user.findByPk(id, function(err, user) {
-      done(err, user);
-    });
+    console.log('session deserialize');
+    db.user.findByPk(id).then(user => {
+      done(null, user);
+    })
   });
+
+
+  // passport.deserializeUser(function(id, done) {
+  //   console.log('session deserialize');
+  //   db.user.findByPk(id, function(user) {
+  //     done(null, user);
+  //   });
+  // });
 
 

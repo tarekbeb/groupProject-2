@@ -4,11 +4,16 @@ const db = require('../models');
 const bodyParser = require('body-parser');
 
 
+
 router.get('/feed', (req, res)=>{
-    db.project.findAll()
+    let userproj = db.userProject.findAll()
+    let projectData = db.project.findAll()
+    Promise 
+    .all([projectData, userproj])
     .then(records =>{
         res.render('feed', {
-            project: records
+            project: records[0],
+            userproject: records[1]
         })
       })
       .catch((error) => {
@@ -26,8 +31,6 @@ router.post('/feed', ((req, res) => {
     let userID  = 2;
 
     db.project.create({pName:pName, description:description, summary:summary, industryID:industryId})
-    
-
     
     .then((result) =>{
         
