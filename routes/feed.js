@@ -35,7 +35,6 @@ router.post('/feed', ((req, res) => {
     //     });
     // });
     let userID = req.session.passport.user.id;
-    console.log(userID)
 
     db.project.create({pName:pName, description:description, summary:summary, industryID:industryId})
     

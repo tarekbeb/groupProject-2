@@ -1,3 +1,16 @@
+.btnLightUp:hover {
+    background-color: rgb(255, 255, 121);
+    box-shadow: 1px 1px 2px rgb(255, 255, 121), 0 0 25px rgb(255, 255, 121), 0 0 5px rgb(255, 255, 121);
+    color: rgb(70, 70, 70);
+}
+.lightup:hover{
+    color: rgb(255, 255, 121)!important;
+    text-shadow: 1px 1px 2px rgb(255, 255, 121), 0 0 25px rgb(255, 255, 121), 0 0 5px rgb(255, 255, 121);
+}
+.indieFont {
+    font-family: 'Indie Flower', cursive,
+}
+
 .section{
     height: 450px;
 }
