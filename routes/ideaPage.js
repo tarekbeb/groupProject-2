@@ -11,14 +11,6 @@ const userProjectData = db.userProject.findAll();
 
 
 router.get('/ideaPage/:ideaID', (req, res) => {
-<<<<<<< HEAD
-    let projectData =  db.project.findByPk(req.params.ideaID)
-    // let test = db.userProject.findAll({include: [{model: db.user}]})
-    // let test = db.userProject.findAll();
-
-    Promise
-    .all([projectData, industryData, userProjectData])
-=======
     let projectData =  db.project.findByPk(req.params.ideaID);
     let userProjectData = db.userProject.findAll()
         .then((projectResult) => {
@@ -29,11 +21,11 @@ router.get('/ideaPage/:ideaID', (req, res) => {
                 console.log(userRecord[0])
                 for (let i=0; i<userRecord.length; i++){
                     // console.log(userRecord[i]) // returns all users
-                    console.log(projectResult.userID);
+                    // console.log(projectResult.userID);
                     if (userIdd == userRecord[i].dataValues.id){
                         // console.log(userProjectData.userID)
-                        console.log('inside for loop')
-                        console.log(userRecord[i].dataValues.fName)
+                        // console.log('inside for loop')
+                        // console.log(userRecord[i].dataValues.fName)
                         break;
                         // compare userID of project with userID of user's table and retrieving name of user 
                     }
@@ -60,21 +52,10 @@ router.get('/ideaPage/:ideaID', (req, res) => {
     Promise
     .all([projectData, industryData, userProjectData])
     
->>>>>>> alfie
         .then(records => {
             res.render('ideaPage', {
                 project: records,
                 industry: records[1],
-<<<<<<< HEAD
-                userProjectData: records[2]
-                
-
-            })
-            userProject._rejectionHandler0.forEach((record) => {
-                if(record.dataValues.projectID == 54){
-                    console.log(record.dataValues.userID);
-            }})
-=======
                 user: records[2]
                 
                 
@@ -82,7 +63,6 @@ router.get('/ideaPage/:ideaID', (req, res) => {
             })
             // console.log(records)
 
->>>>>>> alfie
         })
         .catch((error) => {
         res.send(error)

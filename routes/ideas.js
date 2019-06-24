@@ -13,7 +13,7 @@ router.get('/ideas', (req, res) => {
     Promise
     .all([projectData, industryData])
         .then(records => {
-            res.render('ideas', {
+            res.render('ideas2', {
                 project: records[0],
                 industry: records[1]
 
@@ -24,11 +24,6 @@ router.get('/ideas', (req, res) => {
         res.send(error)
         })
     })
-
-
-
-
-
 
 
 
