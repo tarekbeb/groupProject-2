@@ -48,7 +48,9 @@
 
                     <div class="row">
                             <% userNames.forEach(element => { %>
-                                <a href="/userProfile/" style="color: black; text-decoration: none;">
+                                <% userIds.forEach(id => { %>
+                                    <a href="/userProfile/<%=id%>" style="color: black; text-decoration: none;">
+                                <% }) %> 
                                 <div class="col contributor-box" style="border-radius: 25px; text-align: center; background-color: gray">
                                         <%=element%></a>
                                 </div>

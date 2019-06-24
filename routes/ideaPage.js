@@ -89,21 +89,24 @@ router.get('/ideaPage/:ideaID', (req, res) => {
             results.forEach(project => {
                 project.users.forEach(user =>{
                     userNames.push(user.fName)
-                    // userIds.push(user.id)
+                    userIds.push(user.id)
                 })
             });
         })
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    Promise
-    .all([industryData, userNames, projectData, userIds])
-    .then((records)=>{
-        res.render('ideaPage', {
-            industryData: records[0],
-            userNames: records[1],
-            project : records[2],
-            userIds : records[3]
+        .then(()=>{
+            Promise
+            .all([industryData, userNames, projectData, userIds])
+            .then((records)=>{
+                res.render('ideaPage', {
+                    industryData: records[0],
+                    userNames: records[1],
+                    project : records[2],
+                    userIds : records[3]
+                })
+            })
         })
-    })
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 })
 
 
