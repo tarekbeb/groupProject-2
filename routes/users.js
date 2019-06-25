@@ -124,7 +124,8 @@ router.post('/login',
     passport.authenticate('local', { //USING THE LOCAL STRATEGY
       successRedirect: '/ideas', //ON SUCCESS REDIRECT TO /DASHBOARD
       failureRedirect: '/login', //ON FAILURE STAY OR GO TO LOGIN BASICALLY
-      failureFlash: true //SHOW FLASH MESSAGE ON FAILURE
+      failureFlash: 'Wrong password or username... Please try again.', //SHOW FLASH MESSAGE ON FAILURE
+      successFlash: 'You have successfully logged in!'
     }) //DOCUMENTATION 
 );
   

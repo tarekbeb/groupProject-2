@@ -64,7 +64,6 @@ app.use(require('./routes/index'));
 app.use(require('./routes/users'));
 app.use(require('./routes/newProject'))
 app.use(require('./routes/ideas'))
-app.use(require('./routes/feed'))
 app.use(require('./routes/ideaPage'))
 app.use(require('./routes/userProfile'))
 
@@ -72,5 +71,5 @@ app.use(require('./routes/userProfile'))
 
 const port = 3000;
 app.listen(port, ()=>{
-    console.log(`Listening on port ${3000}`);
+    console.log(`Listening on port ${port}`);
 })
