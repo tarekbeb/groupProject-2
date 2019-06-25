@@ -129,7 +129,8 @@ db.project.findAll({include: [{model: db.user, through: {attrubutes: ['id']}}], 
             industryData: records[0],
             userNames: records[1],
             project : records[2],
-            userIds : records[3]
+            userIds : records[3],
+            user: req.user
         })
     })
 })

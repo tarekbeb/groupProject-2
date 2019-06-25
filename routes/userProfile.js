@@ -10,7 +10,8 @@ router.get('/userProfile/:userID', ((req, res) => {
     .all([userData])
     .then(records => {
         res.render('userProfile', {
-            user: records,
+            users: records,
+            user: req.user
         })
         
         // console.log(records)
