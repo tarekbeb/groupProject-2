@@ -3,6 +3,7 @@ const router = express.Router();
 const db = require('../models');
 require('../config/passport')
 var { ensureAuthenticated } = require('../config/auth')
+const bodyParser = require('body-parser');
 
 
 router.get('/newProject', ensureAuthenticated, ((req, res) => {
@@ -17,6 +18,8 @@ router.get('/newProject', ensureAuthenticated, ((req, res) => {
           res.send("there was an error")
         })
 }))
+
+
 
 
 module.exports = router;

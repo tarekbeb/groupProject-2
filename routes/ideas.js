@@ -28,45 +28,31 @@ router.get('/ideas', (req, res) => {
 
 
 
-
-
 router.use(bodyParser.urlencoded({ extended: false }))
-router.post('/', (req, res) => {
 
-    let firstName = req.body.firstName;
-    let lastName = req.body.lastName;
-    let bio = req.body.bio;
-    let imgURL = req.body.imgURL;
-    let contact = req.body.contact;
+router.post('/ideas', ((req, res) => {
+    let pName = req.body.pName;
+    let industryId = req.body.industry
+    let description = req.body.description
+    let summary = req.body.summary;
 
-    // console.log(req.body)
-
-    // res.send('debugging')
-
-    db.test2.create({firstName:firstName, lastName:lastName, bio:bio, imgURL:imgURL, contact:contact})
-    .then((result) => {
-
-        
-        // db.dishes.findAll()
-        // .then((r) => {
-        //   console.log(r)
-        // })
-        db.test2.findAll()
+    db.project.create({pName:pName, description:description, summary:summary, industryID:industryId,})
+    .then(result =>{
+    Promise
+    .all([projectData, industryData])
         .then(records => {
+            res.render('ideas', {
+                project: records[0],
+                industry: records[1],
+                user: req.user
 
-            console.log(records)
-
-            // res.send('inside of findall')
-          res.render('index', {
-              test2s: records
-          })
+            })
         })
+
         .catch((error) => {
-          res.send("there was an error")
+        res.send(error)
         })
-    })
-  
-})
+})}))
 
 
 module.exports = router;
