@@ -78,11 +78,3 @@ passport.use(new LocalStrategy({usernameField: 'email', passwordField: 'password
   });
 
 
-  // passport.deserializeUser(function(id, done) {
-  //   console.log('session deserialize');
-  //   db.user.findByPk(id, function(user) {
-  //     done(null, user);
-  //   });
-  // });
-
-

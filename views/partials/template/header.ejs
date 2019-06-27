@@ -33,7 +33,10 @@
               </li> 
               <li class="dropdown">
                 <% if (user) { %>
-                <button type="button" class="btn btn-secondary btnLightUp" aria-haspopup="true" aria-expanded="false">
+                  <button type="button" class="btn btn-secondary btnLightUp" aria-haspopup="true" aria-expanded="false">
+                      <a href="/userProfile/<%= user.dataValues.id %> " class="text-light">My Profile</a> 
+                  </button>
+                  <button type="button" class="btn btn-secondary btnLightUp" aria-haspopup="true" aria-expanded="false">
                       <a href="/logout" class="text-light">Logout</a> 
                   </button>
                 <% } else { %>

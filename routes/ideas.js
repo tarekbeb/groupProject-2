@@ -35,17 +35,17 @@ router.post('/ideas', ((req, res) => {
     let industryId = req.body.industry
     let description = req.body.description
     let summary = req.body.summary;
+    let userData =  db.user.findByPk(req.params.userID);
 
     db.project.create({pName:pName, description:description, summary:summary, industryID:industryId,})
     .then(result =>{
     Promise
-    .all([projectData, industryData])
+    .all([projectData, industryData, userData])
         .then(records => {
             res.render('ideas', {
                 project: records[0],
                 industry: records[1],
                 user: req.user
-
             })
         })
 
