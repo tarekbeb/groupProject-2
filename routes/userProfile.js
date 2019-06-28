@@ -13,20 +13,11 @@ router.get('/userProfile/:userID', ((req, res) => {
             users: records,
             user: req.user
         })
-        
-        // console.log(records)
-
     })
     .catch((error) => {
     res.send(error)
     })
-
-
-
-
 }))
-
-
 
 
 module.exports = router;

@@ -7,6 +7,7 @@ var passport = require('passport');
 var flash = require('connect-flash');
 var bodyParser = require('body-parser');
 let app = express();
+const port = 3000;
 
 
 // THREE PIECES NEED TO BE CONFIGURED TO USE PASSPORT FOR AUTHENTICATION
@@ -68,8 +69,6 @@ app.use(require('./routes/ideaPage'))
 app.use(require('./routes/userProfile'))
 
 
-
-const port = 3000;
 app.listen(port, ()=>{
     console.log(`Listening on port ${port}`);
 })

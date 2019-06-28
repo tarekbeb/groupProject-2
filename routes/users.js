@@ -6,9 +6,6 @@ var db = require('../models');
 require('../config/passport');
 
 
-
-
-
 //LOADING USER MODELS/PROFILES
 var User = require('../models/user')
 var { forwardAuthenticated } = require('../config/auth');
@@ -87,33 +84,6 @@ router.post('/register', ((req, res) => {
                 .catch((error) => {
                     res.send(error)
                 })
-                // var newUser = new User({
-                //     fName:fName, 
-                //     lName:lName, 
-                //     username:username,
-                //     email:email,
-                //     password:password
-                // });
-                // console.log(newUser);
-                // //HASH PASSWORD, MUST USE BCRYPTJS
-                // //MUST GENERATE A SALT TO GET A HASH
-                // //EVERY SALT GENERATES A HASH--NESTED
-                // bcrypt.genSalt(10, (err, salt)=>{
-                //     bcrypt.hash(newUser.password, salt, (err, hash)=>{
-                //         if (err) throw err;
-                //         let password = bcrypt.hashSync(req.body.password, 8); //SET THE NEW USER PASSWORD TO HASHED
-                //         db.user.create({newUser}) //SAVES NEW USER
-                //             .then(user => {
-                //                 console.log(`${username}, ${fName}, ${lName}`);
-                //                 req.flash(
-                //                     'success_msg', 
-                //                     'You are now registed and can log in'//CREATES THE FLASH MESSAGE. BECAUSE REDIRECTING STORES THE MESSAGE IN THE SESSION
-                //                 );
-                //                 res.redirect('./login');
-                //             })
-                //             .catch(err => console.log(err));
-                //     });
-                // });
             }
         });
     }
@@ -122,20 +92,19 @@ router.post('/register', ((req, res) => {
 //LOGIN
 router.post('/login',
     passport.authenticate('local', { //USING THE LOCAL STRATEGY
-      successRedirect: '/ideas', //ON SUCCESS REDIRECT TO /DASHBOARD
-      failureRedirect: '/login', //ON FAILURE STAY OR GO TO LOGIN BASICALLY
-      failureFlash: 'Wrong password or username... Please try again.', //SHOW FLASH MESSAGE ON FAILURE
-      successFlash: 'You have successfully logged in!'
+        successRedirect: '/ideas', //ON SUCCESS REDIRECT TO /DASHBOARD
+        failureRedirect: '/login', //ON FAILURE STAY OR GO TO LOGIN BASICALLY
+        failureFlash: 'Wrong password or username... Please try again.', //SHOW FLASH MESSAGE ON FAILURE
+        successFlash: 'You have successfully logged in!'
     }) //DOCUMENTATION 
 );
-  
+
 
   //LOGOUT
-  router.get('/logout', (req, res) => {
+router.get('/logout', (req, res) => {
     req.logout();
-    // req.flash('success_msg', 'You are logged out');
     res.redirect('/login');
-  });
+});
 
 
 
